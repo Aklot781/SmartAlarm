@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Контур часов -->
+    <path
+        android:fillColor="none"
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:pathData="
+            M24,6
+            A18,18 0 1,1 23.9,6z"/>
+
+    <!-- Часовая стрелка -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M24,24 L24,14"/>
+
+    <!-- Минутная стрелка -->
+    <path
+        android:strokeColor="#000000"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M24,24 L32,28"/>
+</vector>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Базовые цвета Material Design -->
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+
+    <!-- Нейтральные цвета -->
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#FF808080</color>
+    <color name="light_gray">#FFD3D3D3</color>
+
+    <!-- Цвета статусов -->
+    <color name="red">#FFFF0000</color>
+    <color name="green">#FF00FF00</color>
+    <color name="success">#FF4CAF50</color>
+    <color name="error">#FFF44336</color>
+    <color name="warning">#FFFF9800</color>
+
+    <!-- Светлые версии для фонов -->
+    <color name="green_light">#E8F5E9</color>
+    <color name="red_light">#FFEBEE</color>
+
+    <!-- Темные версии -->
+    <color name="green_dark">#FF2E7D32</color>
+    <color name="red_dark">#FFC62828</color>
+
+    <!-- Фоны -->
+    <color name="background">#FFF5F5F5</color>
+    <color name="background_main">#FFFAFAFA</color>
+
+    <!-- Текст -->
+    <color name="text_primary">#FF212121</color>
+    <color name="text_secondary">#FF757575</color>
+    <color name="text_on_color">#FFFFFFFF</color> <!-- Текст на цветном фоне -->
+
+    <!-- Иконки -->
+    <color name="icon_primary">#FF6200EE</color>
+    <color name="icon_secondary">#FF757575</color>
+    <color name="icon_on_color">#FFFFFFFF</color> <!-- Иконки на цветном фоне -->
+
+    <!-- ========== ЦВЕТА ДЛЯ КАРТОЧЕК ========== -->
+
+    <!-- Для activity_main (нейтральные, светлые) -->
+    <color name="card_light">#FFFFFFFF</color>
+
+    <!-- Для activity_choose_task и activity_alarm_list (яркие) -->
+    <color name="card_math_bg">#FFFF5722</color>     <!-- Оранжево-красный фон -->
+    <color name="card_translate_bg">#FF2196F3</color> <!-- Синий фон -->
+    <color name="card_number_bg">#FF4CAF50</color>    <!-- Зеленый фон -->
+    <color name="card_letter_bg">#FF9C27B0</color>    <!-- Фиолетовый фон -->
+    <color name="card_combo_bg">#FFFF9800</color>     <!-- Оранжевый фон -->
+
+    <!-- Светлые версии для других экранов (если нужно) -->
+    <color name="card_math_light">#FFF3E5F5</color>
+    <color name="card_translate_light">#FFE3F2FD</color>
+    <color name="card_number_light">#FFF1F8E9</color>
+    <color name="card_letter_light">#FFFCE4EC</color>
+    <color name="card_combo_light">#FFFFF8E1</color>
+
+    <!-- Цвета текста для типов задач (для RadioButton и т.д.) -->
+    <color name="color_math">#FF4CAF50</color>
+    <color name="color_translate">#FF2196F3</color>
+    <color name="color_logic">#FF9C27B0</color>
+    <color name="color_attention">#FFFF9800</color>
+    <color name="color_find_symbol">#FFE91E63</color>
+    <color name="color_combo">#FF607D8B</color>
+
+    <!-- Для activity_set_alarm -->
+    <color name="card_set_alarm">#FFFFFFFF</color>
+    <color name="card_save_button">#FF4CAF50</color>
+
+    <!-- Для activity_settings и activity_history -->
+    <color name="card_settings_item">#FFFFFFFF</color>
+    <color name="card_history_item">#FFFFFFFF</color>
+
+    <!-- Дополнительные карточки (можно использовать при необходимости) -->
+    <color name="card_primary_bg">#FF2196F3</color>   <!-- Синий -->
+    <color name="card_secondary_bg">#FF4CAF50</color> <!-- Зеленый -->
+    <color name="card_tertiary_bg">#FFFF9800</color>  <!-- Оранжевый -->
+    <color name="card_info_bg">#FF9C27B0</color>      <!-- Фиолетовый -->
+    <color name="card_history_bg">#FF607D8B</color>   <!-- Серо-голубой -->
+    <color name="card_settings_bg">#FF795548</color>  <!-- Коричневый -->
+</resources>

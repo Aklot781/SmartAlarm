@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Основная тема -->
+    <style name="Theme.SmartAlarm" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your theme here -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryContainer">@color/purple_200</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <!-- Полноэкранная тема для TaskActivity (опционально) -->
+    <style name="Theme.SmartAlarm.Fullscreen" parent="Theme.SmartAlarm">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+</resources>
