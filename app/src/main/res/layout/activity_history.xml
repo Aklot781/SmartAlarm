@@ -7,6 +7,7 @@
     android:padding="16dp"
     android:background="@color/background">
 
+
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
@@ -23,82 +24,16 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <LinearLayout
+        <!-- TextView для отображения текста -->
+        <TextView
+            android:id="@+id/tvHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:text="Загрузка истории..."
+            android:textSize="16sp"
+            android:lineSpacingExtra="8dp"
+            android:padding="8dp"/>
 
-            <!-- Пример записи истории в виде карточки -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardElevation="4dp"
-                app:cardCornerRadius="8dp"
-                app:cardBackgroundColor="@color/card_history_item">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="14 декабря, 11:45"
-                            android:textSize="16sp"
-                            android:textColor="@color/text_primary"
-                            android:textStyle="bold"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="✅ Успешно"
-                            android:textSize="14sp"
-                            android:textColor="@color/success"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"/>
-
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Тип: Логика"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginBottom="4dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Задача: Найди число 7 в последовательности"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"
-                        android:layout_marginBottom="4dp"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Ответ: 7"
-                        android:textSize="14sp"
-                        android:textColor="@color/text_secondary"/>
-
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- Другие записи истории будут добавляться динамически -->
-            <!-- ... -->
-
-        </LinearLayout>
     </ScrollView>
 
 </LinearLayout>

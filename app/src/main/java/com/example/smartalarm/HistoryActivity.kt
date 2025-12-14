@@ -22,11 +22,24 @@ class HistoryActivity : AppCompatActivity() {
 
         for (i in 0 until jsonArray.length()) {
             val obj = jsonArray.getJSONObject(i)
-            sb.append("Задача: ${obj.getString("type")}\n")
-            sb.append("Результат: ${if (obj.getBoolean("ok")) "✔ Верно" else "✖ Ошибка"}\n")
-            sb.append("Время: ${obj.getString("time")}\n\n")
+            sb.append(" ${obj.getString("time")}\n")
+            sb.append(" Тип: ${obj.getString("type")}\n")
+            sb.append(if (obj.getBoolean("ok")) "✅ Верно" else "❌ Ошибка")
+
+            // Дополнительные поля если есть
+            if (obj.has("task")) {
+                sb.append("\n🔍 ${obj.getString("task")}")
+            }
+            if (obj.has("answer")) {
+                sb.append("\n📝 Ответ: ${obj.getString("answer")}")
+            }
+            sb.append("\n\n${"-".repeat(30)}\n\n")
         }
 
-        binding.tvHistory.text = sb.toString()
+        if (sb.isEmpty()) {
+            binding.tvHistory.text = "История заданий пуста"
+        } else {
+            binding.tvHistory.text = sb.toString()
+        }
     }
 }

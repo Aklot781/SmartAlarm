@@ -46,7 +46,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_math"
+                android:src="@drawable/baseline_1x_mobiledata_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/white"
                 android:contentDescription="Математика"/>
@@ -89,7 +89,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_translate"
+                android:src="@drawable/baseline_translate_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/white"
                 android:contentDescription="Перевод"/>
@@ -132,7 +132,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_number"
+                android:src="@drawable/baseline_123_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/white"
                 android:contentDescription="Найти число"/>
@@ -175,7 +175,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_letter"
+                android:src="@drawable/baseline_abc_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/white"
                 android:contentDescription="Найти букву"/>
@@ -218,7 +218,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_combo"
+                android:src="@drawable/baseline_playlist_add_check_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/white"
                 android:contentDescription="Комбо задание"/>

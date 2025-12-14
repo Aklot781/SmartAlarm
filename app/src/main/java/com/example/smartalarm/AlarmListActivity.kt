@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -29,6 +30,12 @@ class AlarmListActivity : AppCompatActivity() {
         setupRecyclerView()
         loadAlarms()
         setupClickListeners()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Обновляем список при возвращении на экран
+        loadAlarms()
     }
 
     private fun setupRecyclerView() {
@@ -137,7 +144,10 @@ class AlarmListActivity : AppCompatActivity() {
         if (alarm.isActive) {
             // Включаем будильник в системе
             setAlarmInSystem(alarm)
-            Toast.makeText(this, "Будильник включен", Toast.LENGTH_SHORT).show()
+            // Проверяем, установился ли будильник
+            if (alarm.isActive) {
+                Toast.makeText(this, "Будильник включен", Toast.LENGTH_SHORT).show()
+            }
         } else {
             // Отключаем будильник в системе
             cancelAlarmInSystem(alarm.id)
@@ -149,6 +159,31 @@ class AlarmListActivity : AppCompatActivity() {
 
     private fun setAlarmInSystem(alarm: AlarmItem) {
         val am = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+        // Проверка для Android 12+ (API 31)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            if (!am.canScheduleExactAlarms()) {
+                // Показываем диалог с предложением перейти в настройки
+                AlertDialog.Builder(this)
+                    .setTitle("Разрешение на точные будильники")
+                    .setMessage("Для работы будильника необходимо разрешить точное планирование. Перейти в настройки?")
+                    .setPositiveButton("Перейти") { dialog, _ ->
+                        startActivity(
+                            Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                        )
+                        dialog.dismiss()
+                    }
+                    .setNegativeButton("Отмена") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
+
+                // Не устанавливаем будильник пока нет разрешения
+                alarm.isActive = false
+                return
+            }
+        }
+
         val intent = Intent(this, AlarmReceiver::class.java).apply {
             putExtra("taskType", alarm.taskType)
             putExtra("alarm_id", alarm.id)
@@ -161,11 +196,30 @@ class AlarmListActivity : AppCompatActivity() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        am.setExactAndAllowWhileIdle(
-            AlarmManager.RTC_WAKEUP,
-            alarm.time,
-            pending
-        )
+        try {
+            am.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                alarm.time,
+                pending
+            )
+
+            // Проверяем если время уже прошло
+            if (alarm.time <= System.currentTimeMillis()) {
+                Toast.makeText(this, "Время будильника уже прошло", Toast.LENGTH_SHORT).show()
+                alarm.isActive = false
+            }
+        } catch (e: SecurityException) {
+            // Если возникла SecurityException, запрашиваем разрешение
+            Toast.makeText(this, "Необходимо разрешение на точные будильники", Toast.LENGTH_LONG).show()
+            alarm.isActive = false
+
+            // Для Android 12+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                startActivity(
+                    Intent(android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM)
+                )
+            }
+        }
     }
 
     private fun cancelAlarmInSystem(alarmId: Int) {
@@ -181,7 +235,7 @@ class AlarmListActivity : AppCompatActivity() {
     }
 
     private fun formatTime(millis: Long): String {
-        val sdf = SimpleDateFormat("HH:mm, EEEE, d MMMM", Locale.getDefault())
+        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
         return sdf.format(Date(millis))
     }
 

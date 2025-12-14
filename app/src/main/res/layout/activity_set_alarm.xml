@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- RadioButtons остаются как были -->
+                    <!-- Математика -->
                     <RadioButton
                         android:id="@+id/rbMath"
                         android:layout_width="wrap_content"
@@ -96,7 +96,50 @@
                         android:checked="true"
                         android:layout_marginBottom="12dp"/>
 
-                    <!-- ... остальные RadioButton -->
+                    <!-- Перевод -->
+                    <RadioButton
+                        android:id="@+id/rbTranslate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🌐 Перевод (EN → RU)"
+                        android:tag="translate"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Логика -->
+                    <RadioButton
+                        android:id="@+id/rbLogic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🧠 Логические задачи"
+                        android:tag="logic"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Внимательность -->
+                    <RadioButton
+                        android:id="@+id/rbAttention"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🔍 Внимательность (найти число)"
+                        android:tag="attention"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Найти символ -->
+                    <RadioButton
+                        android:id="@+id/rbFindSymbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🔤 Найти букву/цифру"
+                        android:tag="find_symbol"
+                        android:layout_marginBottom="12dp"/>
+
+                    <!-- Комбо -->
+                    <RadioButton
+                        android:id="@+id/rbCombo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🎯 Смешанные задачи"
+                        android:tag="combo"
+                        android:layout_marginBottom="12dp"/>
 
                 </RadioGroup>
 

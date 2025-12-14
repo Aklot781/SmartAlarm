@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="24dp"
-    android:background="@color/background_main">
+    android:background="@color/white">
 
     <!-- Логотип приложения -->
     <ImageView
@@ -16,7 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
-        android:src="@drawable/ic_app_logo"
+        android:src="@drawable/baseline_alarm_24"
         android:contentDescription="Логотип Умный будильник"/>
 
     <TextView
@@ -57,7 +57,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_alarm_add"
+                android:src="@drawable/baseline_add_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/icon_primary"
                 android:contentDescription="Добавить будильник"/>
@@ -100,7 +100,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_alarm_list"
+                android:src="@drawable/baseline_alarm_on_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/icon_primary"
                 android:contentDescription="Список будильников"/>
@@ -143,7 +143,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_test"
+                android:src="@drawable/baseline_task_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/icon_primary"
                 android:contentDescription="Тест задач"/>
@@ -186,7 +186,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_info"
+                android:src="@drawable/baseline_perm_device_information_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/icon_primary"
                 android:contentDescription="Информация о задачах"/>
@@ -229,7 +229,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_history"
+                android:src="@drawable/baseline_history_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/icon_primary"
                 android:contentDescription="История заданий"/>
@@ -271,7 +271,7 @@
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_settings"
+                android:src="@drawable/baseline_settings_24"
                 android:layout_marginEnd="16dp"
                 app:tint="@color/icon_primary"
                 android:contentDescription="Настройки"/>

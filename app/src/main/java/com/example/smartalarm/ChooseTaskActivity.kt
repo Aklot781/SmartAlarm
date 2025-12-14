@@ -16,7 +16,7 @@ class ChooseTaskActivity : AppCompatActivity() {
         binding = ActivityChooseTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Исправьте ID! У вас cardMath, а не candidate
+
         binding.cardMath.setOnClickListener { startTask("math") }
         binding.cardTranslate.setOnClickListener { startTask("translate") }
         binding.cardFindNumber.setOnClickListener { startTask("logic") }

@@ -4,7 +4,6 @@ import android.media.Ringtone
 import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
-import android.view.MotionEvent
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -21,7 +20,7 @@ class TaskActivity : AppCompatActivity() {
     private var ringtone: Ringtone? = null
     private var correctAnswer: String = ""
     private var currentTaskType: String = "math"
-    private var alarmId: Int = 0  // ← ДОБАВЛЕНО: ID будильника
+    private var alarmId: Int = 0
     private var totalTasks = 3
     private var solvedTasks = 0
 
@@ -34,48 +33,27 @@ class TaskActivity : AppCompatActivity() {
 
         // Получаем данные из Intent
         currentTaskType = intent.getStringExtra("taskType") ?: "math"
-        alarmId = intent.getIntExtra("alarm_id", 0)  // ← ДОБАВЛЕНО: получаем ID будильника
+        alarmId = intent.getIntExtra("alarm_id", 0)
 
-        // Показываем информацию о будильнике (опционально)
+        // Показываем информацию о будильнике
         showAlarmInfo()
 
         blockBackPress()
         playAlarmSound()
         generateTask(currentTaskType)
 
-        binding.btnSubmitAnswer.setOnTouchListener { v, event ->
-            if (event.action == MotionEvent.ACTION_DOWN) {
-                val rnd = Random.nextInt(100)
-
-                if (rnd < 30) {
-                    val parent = binding.root
-                    val maxX = parent.width - v.width
-                    val maxY = parent.height - v.height
-
-                    if (maxX > 0 && maxY > 0) {
-                        v.animate()
-                            .x(Random.nextInt(0, maxX).toFloat())
-                            .y(Random.nextInt(0, maxY).toFloat())
-                            .setDuration(300)
-                            .start()
-                    }
-                    return@setOnTouchListener true
-                }
-            }
-            v.performClick()
-            false
-        }
-
+        // УБИРАЕМ ВСЁ, что связано с движением кнопки
         binding.btnSubmitAnswer.setOnClickListener {
             checkAnswer()
         }
     }
 
-    // ← ДОБАВЛЕН МЕТОД: Показываем информацию о будильнике
+    // УДАЛЯЕМ метод dpToPx() - он больше не нужен
+
+    // Показываем информацию о будильнике
     private fun showAlarmInfo() {
         if (alarmId != 0) {
-            // Можно добавить отображение дополнительной информации
-            // Например: "Будильник #$alarmId"
+            // Можно добавить отображение информации о будильнике
         }
     }
 
@@ -84,7 +62,7 @@ class TaskActivity : AppCompatActivity() {
             stopAlarmSound()
             Toast.makeText(this, "Все задания решены! Будильник отключен", Toast.LENGTH_LONG).show()
 
-            // ← ДОБАВЛЕНО: Отмечаем будильник как выполненный
+            // Отмечаем будильник как выполненный
             markAlarmAsCompleted()
 
             finish()
@@ -191,8 +169,10 @@ class TaskActivity : AppCompatActivity() {
         if (user.equals(correctAnswer, ignoreCase = true)) {
             saveHistory(currentTaskType, true)
             solvedTasks++
-            binding.etAnswer.text?.clear() // Safe call!
-            generateTask(currentTaskType)
+            binding.etAnswer.text?.clear()
+
+            // УБИРАЕМ анимацию возвращения кнопки
+            generateTask(currentTaskType) // Просто генерируем новую задачу
         } else {
             saveHistory(currentTaskType, false)
             vibrateOnError()
@@ -246,7 +226,6 @@ class TaskActivity : AppCompatActivity() {
         }
     }
 
-    // ← ОБНОВЛЕН МЕТОД: Теперь сохраняет alarm_id
     private fun saveHistory(type: String, ok: Boolean) {
         val prefs = getSharedPreferences("task_history", MODE_PRIVATE)
         val old = prefs.getString("history", "[]") ?: "[]"
@@ -255,7 +234,7 @@ class TaskActivity : AppCompatActivity() {
         val obj = org.json.JSONObject().apply {
             put("type", type)
             put("ok", ok)
-            put("alarm_id", alarmId)  // ← ДОБАВЛЕНО: ID будильника
+            put("alarm_id", alarmId)
             put("time", java.text.SimpleDateFormat("HH:mm", java.util.Locale.getDefault()).format(java.util.Date()))
         }
 
@@ -266,17 +245,11 @@ class TaskActivity : AppCompatActivity() {
     // ← НОВЫЙ МЕТОД: Отмечаем будильник как выполненный
     private fun markAlarmAsCompleted() {
         if (alarmId != 0) {
-            // Можно добавить логику, например:
-            // - Отметить в истории что будильник был отключен
-            // - Удалить из активных будильников
-            // - Сохранить статистику
-
             val prefs = getSharedPreferences("alarms_completed", MODE_PRIVATE)
             val completedAlarms = prefs.getStringSet("completed", mutableSetOf()) ?: mutableSetOf()
             completedAlarms.add(alarmId.toString())
             prefs.edit().putStringSet("completed", completedAlarms).apply()
 
-            // Также можно обновить статус в основном списке будильников
             updateAlarmStatus(false) // false = неактивный (выполнен)
         }
     }

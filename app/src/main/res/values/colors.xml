@@ -76,8 +76,7 @@
     <!-- Для activity_settings и activity_history -->
     <color name="card_settings_item">#FFFFFFFF</color>
     <color name="card_history_item">#FFFFFFFF</color>
-
-    <!-- Дополнительные карточки (можно использовать при необходимости) -->
+    <color name="card_task_bg">#FFFFFFFF</color> <!-- Белый -->
     <color name="card_primary_bg">#FF2196F3</color>   <!-- Синий -->
     <color name="card_secondary_bg">#FF4CAF50</color> <!-- Зеленый -->
     <color name="card_tertiary_bg">#FFFF9800</color>  <!-- Оранжевый -->
