@@ -1,298 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
+    android:fillViewport="true"
     android:background="@color/white">
 
-    <!-- Логотип приложения -->
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="32dp"
-        android:src="@drawable/baseline_alarm_24"
-        android:contentDescription="Логотип Умный будильник"/>
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Умный будильник"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:gravity="center"
-        android:layout_marginBottom="32dp"
-        android:textColor="@color/text_primary"/>
+        android:orientation="vertical"
+        android:padding="24dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Проснись с умом!"
-        android:textSize="16sp"
-        android:gravity="center"
-        android:layout_marginBottom="40dp"
-        android:textColor="@color/text_secondary"/>
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="32dp"
+            android:contentDescription="Логотип Умный будильник"
+            android:src="@drawable/baseline_alarm_24" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardSetAlarm"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="@color/card_light">
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:gravity="center_vertical">
+            android:text="Умный будильник"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="32dp"
+            android:textColor="@color/text_primary"/>
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/baseline_add_24"
-                android:layout_marginEnd="16dp"
-                app:tint="@color/icon_primary"
-                android:contentDescription="Добавить будильник"/>
-
-            <TextView
-                android:id="@+id/btnSetAlarm"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Создать будильник"
-                android:textSize="18sp"
-                android:textColor="@color/text_primary"/>
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_forward"
-                app:tint="@color/icon_secondary"
-                android:contentDescription="Перейти"/>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardAlarmList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="@color/card_light">
-
-        <LinearLayout
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:gravity="center_vertical">
+            android:text="Проснись с умом!"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_marginBottom="40dp"
+            android:textColor="@color/text_secondary"/>
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/baseline_alarm_on_24"
-                android:layout_marginEnd="16dp"
-                app:tint="@color/icon_primary"
-                android:contentDescription="Список будильников"/>
-
-            <TextView
-                android:id="@+id/btnAlarmList"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Мои будильники"
-                android:textSize="18sp"
-                android:textColor="@color/text_primary"/>
-
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_forward"
-                app:tint="@color/icon_secondary"
-                android:contentDescription="Перейти"/>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardTestTasks"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="@color/card_light">
-
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSetAlarm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:gravity="center_vertical">
+            android:layout_marginBottom="16dp"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/card_light">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/baseline_task_24"
-                android:layout_marginEnd="16dp"
-                app:tint="@color/icon_primary"
-                android:contentDescription="Тест задач"/>
-
-            <TextView
-                android:id="@+id/btnTestTasks"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Тест задач"
-                android:textSize="18sp"
-                android:textColor="@color/text_primary"/>
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_forward"
-                app:tint="@color/icon_secondary"
-                android:contentDescription="Перейти"/>
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="Добавить будильник"
+                    android:src="@drawable/baseline_add_24"
+                    app:tint="@color/icon_primary" />
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/btnSetAlarm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Создать будильник"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardTaskInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="@color/card_light">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:contentDescription="Перейти"
+                    android:src="@drawable/ic_arrow_forward"
+                    app:tint="@color/icon_secondary" />
 
-        <LinearLayout
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAlarmList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:gravity="center_vertical">
+            android:layout_marginBottom="16dp"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/card_light">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/baseline_perm_device_information_24"
-                android:layout_marginEnd="16dp"
-                app:tint="@color/icon_primary"
-                android:contentDescription="Информация о задачах"/>
-
-            <TextView
-                android:id="@+id/btnTaskInfo"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Информация о задачах"
-                android:textSize="18sp"
-                android:textColor="@color/text_primary"/>
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_forward"
-                app:tint="@color/icon_secondary"
-                android:contentDescription="Перейти"/>
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/baseline_alarm_on_24"
+                    android:layout_marginEnd="16dp"
+                    app:tint="@color/icon_primary"
+                    android:contentDescription="Список будильников"/>
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/btnAlarmList"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Мои будильники"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"/>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardHistory"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="@color/card_light">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_forward"
+                    app:tint="@color/icon_secondary"
+                    android:contentDescription="Перейти"/>
 
-        <LinearLayout
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardTestTasks"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:gravity="center_vertical">
+            android:layout_marginBottom="16dp"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/card_light">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/baseline_history_24"
-                android:layout_marginEnd="16dp"
-                app:tint="@color/icon_primary"
-                android:contentDescription="История заданий"/>
-
-            <TextView
-                android:id="@+id/btnHistory"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="История"
-                android:textSize="18sp"
-                android:textColor="@color/text_primary"/>
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_forward"
-                app:tint="@color/icon_secondary"
-                android:contentDescription="Перейти"/>
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/baseline_task_24"
+                    android:layout_marginEnd="16dp"
+                    app:tint="@color/icon_primary"
+                    android:contentDescription="Тест задач"/>
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/btnTestTasks"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Тест задач"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"/>
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/cardSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="2dp"
-        app:cardCornerRadius="12dp"
-        app:cardBackgroundColor="@color/card_light">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_forward"
+                    app:tint="@color/icon_secondary"
+                    android:contentDescription="Перейти"/>
 
-        <LinearLayout
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardTaskInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="20dp"
-            android:gravity="center_vertical">
+            android:layout_marginBottom="16dp"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/card_light">
 
-            <ImageView
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/baseline_settings_24"
-                android:layout_marginEnd="16dp"
-                app:tint="@color/icon_primary"
-                android:contentDescription="Настройки"/>
-
-            <TextView
-                android:id="@+id/btnSettings"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Настройки"
-                android:textSize="18sp"
-                android:textColor="@color/text_primary"/>
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:gravity="center_vertical">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_arrow_forward"
-                app:tint="@color/icon_secondary"
-                android:contentDescription="Перейти"/>
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/baseline_perm_device_information_24"
+                    android:layout_marginEnd="16dp"
+                    app:tint="@color/icon_primary"
+                    android:contentDescription="Информация о задачах"/>
 
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/btnTaskInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Информация о задачах"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"/>
 
-</LinearLayout>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_forward"
+                    app:tint="@color/icon_secondary"
+                    android:contentDescription="Перейти"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/card_light">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/baseline_history_24"
+                    android:layout_marginEnd="16dp"
+                    app:tint="@color/icon_primary"
+                    android:contentDescription="История заданий"/>
+
+                <TextView
+                    android:id="@+id/btnHistory"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="История"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_forward"
+                    app:tint="@color/icon_secondary"
+                    android:contentDescription="Перейти"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="@color/card_light">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/baseline_settings_24"
+                    android:layout_marginEnd="16dp"
+                    app:tint="@color/icon_primary"
+                    android:contentDescription="Настройки"/>
+
+                <TextView
+                    android:id="@+id/btnSettings"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Настройки"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_primary"/>
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_arrow_forward"
+                    app:tint="@color/icon_secondary"
+                    android:contentDescription="Перейти"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp" />
+
+    </LinearLayout>
+</ScrollView>

@@ -12,23 +12,24 @@ class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // ViewBinding
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupClickListeners()
+
         val prefs = getSharedPreferences("alarm_settings", Context.MODE_PRIVATE)
 
-        // Загружаем сохранённые значения
+        //грромкость
         val savedVolume = prefs.getInt("volume", 70)
-        val vibrationEnabled = prefs.getBoolean("vibration", true)
-
         binding.seekVolume.progress = savedVolume
-        binding.switchVibration.isChecked = vibrationEnabled
 
-        // Сохраняем изменения громкости
         binding.seekVolume.setOnSeekBarChangeListener(
             object : android.widget.SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: android.widget.SeekBar?, progress: Int, fromUser: Boolean) {
+                override fun onProgressChanged(
+                    seekBar: android.widget.SeekBar?,
+                    progress: Int,
+                    fromUser: Boolean
+                ) {
                     prefs.edit().putInt("volume", progress).apply()
                 }
 
@@ -37,9 +38,28 @@ class SettingsActivity : AppCompatActivity() {
             }
         )
 
-        // Сохраняем изменения вибрации
-        binding.switchVibration.setOnCheckedChangeListener { _, isChecked ->
-            prefs.edit().putBoolean("vibration", isChecked).apply()
+        //сложность
+        val savedDifficulty = prefs.getString("difficulty", "easy")
+
+        when (savedDifficulty) {
+            "easy" -> binding.rbEasy.isChecked = true
+            "medium" -> binding.rbMedium.isChecked = true
+            "hard" -> binding.rbHard.isChecked = true
+        }
+
+        binding.radioDifficulty.setOnCheckedChangeListener { _, checkedId ->
+            val difficulty = when (checkedId) {
+                R.id.rbEasy -> "easy"
+                R.id.rbMedium -> "medium"
+                R.id.rbHard -> "hard"
+                else -> "easy"
+            }
+            prefs.edit().putString("difficulty", difficulty).apply()
+        }
+    }
+    private fun setupClickListeners() {
+        binding.btnBack.setOnClickListener {
+            finish()
         }
     }
 }

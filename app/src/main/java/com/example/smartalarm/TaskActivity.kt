@@ -9,8 +9,6 @@ import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.smartalarm.databinding.ActivityTaskBinding
 import kotlin.random.Random
-import android.os.VibrationEffect
-import android.os.Vibrator
 import android.annotation.SuppressLint
 import org.json.JSONArray
 
@@ -23,6 +21,9 @@ class TaskActivity : AppCompatActivity() {
     private var alarmId: Int = 0
     private var totalTasks = 3
     private var solvedTasks = 0
+    private var difficulty: String = "easy"
+    private var isTestMode: Boolean = false
+
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,29 +32,50 @@ class TaskActivity : AppCompatActivity() {
         binding = ActivityTaskBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Получаем данные из Intent
+        val prefs = getSharedPreferences("alarm_settings", MODE_PRIVATE)
+        difficulty = prefs.getString("difficulty", "easy") ?: "easy"
+
         currentTaskType = intent.getStringExtra("taskType") ?: "math"
         alarmId = intent.getIntExtra("alarm_id", 0)
+        isTestMode = intent.getBooleanExtra("isTest", false)
 
-        // Показываем информацию о будильнике
-        showAlarmInfo()
+        setupToolbar()
 
-        blockBackPress()
-        playAlarmSound()
+        if (!isTestMode) {
+            playAlarmSound()
+            blockBackPress()
+        }
         generateTask(currentTaskType)
 
-        // УБИРАЕМ ВСЁ, что связано с движением кнопки
         binding.btnSubmitAnswer.setOnClickListener {
             checkAnswer()
         }
     }
 
-    // УДАЛЯЕМ метод dpToPx() - он больше не нужен
 
     // Показываем информацию о будильнике
     private fun showAlarmInfo() {
         if (alarmId != 0) {
-            // Можно добавить отображение информации о будильнике
+        }
+    }
+
+    private fun setupToolbar() {
+        if (isTestMode) {
+            //можно выйти
+            binding.btnBack.visibility = android.view.View.VISIBLE
+            binding.btnBack.setOnClickListener {
+                finish()
+            }
+        } else {
+            //выход запрещён
+            binding.btnBack.visibility = android.view.View.VISIBLE
+            binding.btnBack.setOnClickListener {
+                Toast.makeText(
+                    this,
+                    "Нельзя выйти — решите задачи!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 
@@ -62,7 +84,6 @@ class TaskActivity : AppCompatActivity() {
             stopAlarmSound()
             Toast.makeText(this, "Все задания решены! Будильник отключен", Toast.LENGTH_LONG).show()
 
-            // Отмечаем будильник как выполненный
             markAlarmAsCompleted()
 
             finish()
@@ -77,88 +98,160 @@ class TaskActivity : AppCompatActivity() {
             "logic" -> generateLogic()
             "attention" -> generateAttention()
             "combo" -> generateRandomMixed()
-            "find_symbol" -> generateFindSymbol()
+            "wordpuzzle" -> generateWordPuzzle()
             else -> generateMath()
         }
     }
 
     private fun generateMath() {
-        val a = Random.nextInt(2, 20)
-        val b = Random.nextInt(2, 20)
-        val op = listOf("+", "-", "×").random()
+        val range = when (difficulty) {
+            "easy" -> 2..10
+            "medium" -> 10..30
+            "hard" -> 20..100
+            else -> 2..10
+        }
+
+        val a = range.random()
+        val b = range.random()
+
+        val operations = when (difficulty) {
+            "easy" -> listOf("+", "-")
+            "medium" -> listOf("+", "-", "×")
+            "hard" -> listOf("+", "-", "×")
+            else -> listOf("+")
+        }
+
+        val op = operations.random()
 
         val question = when (op) {
-            "+" -> { correctAnswer = (a + b).toString(); "$a + $b = ?" }
-            "-" -> { correctAnswer = (a - b).toString(); "$a - $b = ?" }
-            else -> { correctAnswer = (a * b).toString(); "$a × $b = ?" }
+            "+" -> {
+                correctAnswer = (a + b).toString()
+                "$a + $b = ?"
+            }
+            "-" -> {
+                correctAnswer = (a - b).toString()
+                "$a - $b = ?"
+            }
+            else -> {
+                correctAnswer = (a * b).toString()
+                "$a × $b = ?"
+            }
         }
 
         binding.tvQuestion.append(question)
     }
 
+
+
     private fun generateTranslate() {
-        val dict = mapOf(
-            "cat" to "кот",
-            "dog" to "собака",
-            "house" to "дом",
-            "car" to "машина",
-            "apple" to "яблоко",
-            "street" to "улица",
-            "phone" to "телефон"
-        )
+        val dict = when (difficulty) {
+            "easy" -> mapOf(
+                "cat" to "кот", "dog" to "собака", "house" to "дом", "car" to "машина",
+                "book" to "книга", "pen" to "ручка", "sun" to "солнце", "water" to "вода",
+                "tree" to "дерево", "flower" to "цветок", "bird" to "птица", "fish" to "рыба"
+            )
+            "medium" -> mapOf(
+                "street" to "улица", "phone" to "телефон", "window" to "окно", "water" to "вода",
+                "school" to "школа", "teacher" to "учитель", "student" to "ученик", "computer" to "компьютер",
+                "music" to "музыка", "picture" to "картина", "country" to "страна", "city" to "город"
+            )
+            "hard" -> mapOf(
+                "environment" to "окружающая среда", "development" to "развитие", "knowledge" to "знание",
+                "experience" to "опыт", "application" to "приложение", "algorithm" to "алгоритм",
+                "programming" to "программирование", "information" to "информация", "technology" to "технология",
+                "communication" to "общение", "education" to "образование", "intelligence" to "интеллект"
+            )
+            else -> emptyMap()
+        }
 
         val entry = dict.entries.random()
         correctAnswer = entry.value.lowercase()
         binding.tvQuestion.append("Переведи слово: \"${entry.key}\"")
     }
 
+
     private fun generateLogic() {
-        val tasks = listOf(
-            "Продолжи ряд: 2, 4, 6, 8, ?" to "10",
-            "Продолжи ряд: 3, 6, 9, 12, ?" to "15",
-            "Что лишнее: кот, собака, яблоко?" to "яблоко",
-            "Что лишнее: 2, 4, 6, 7, 8?" to "7",
-        )
+        val tasks = when (difficulty) {
+            "easy" -> listOf(
+                "Продолжи ряд: 2, 4, 6, ?" to "8",
+                "Что лишнее: кот, собака, яблоко?" to "яблоко",
+                "Продолжи ряд: 5, 10, 15, ?" to "20",
+                "Что лишнее: яблоко, груша, помидор, стол?" to "стол",
+                "Продолжи ряд: 1, 3, 5, ?" to "7",
+                "Что лишнее: молоко, вода, сок, хлеб?" to "хлеб"
+            )
+            "medium" -> listOf(
+                "Продолжи ряд: 3, 6, 9, 12, ?" to "15",
+                "Что лишнее: 2, 4, 6, 7, 8?" to "7",
+                "Продолжи ряд: 10, 20, 30, 40, ?" to "50",
+                "Что лишнее: понедельник, среда, пятница, лето?" to "лето",
+                "Продолжи ряд: 1, 4, 9, 16, ?" to "25",
+                "Что лишнее: ручка, карандаш, фломастер, компьютер?" to "компьютер"
+            )
+            "hard" -> listOf(
+                "Продолжи ряд: 5, 10, 20, 40, ?" to "80",
+                "Что лишнее: квадрат, круг, треугольник, красный?" to "красный",
+                "Продолжи ряд: 1, 1, 2, 3, 5, ?" to "8",
+                "Что лишнее: молоток, пила, отвертка, книга?" to "книга",
+                "Продолжи ряд: 2, 3, 5, 7, 11, ?" to "13",
+                "Что лишнее: басня, рассказ, стихотворение, математика?" to "математика"
+            )
+            else -> emptyList()
+        }
 
         val (q, ans) = tasks.random()
         correctAnswer = ans.lowercase()
         binding.tvQuestion.append(q)
     }
 
+
     private fun generateAttention() {
-        val digits = (0..9).shuffled().take(5)
+        val count = when (difficulty) {
+            "easy" -> 5
+            "medium" -> 7
+            "hard" -> 10
+            else -> 5
+        }
+
+        val maxDigit = when (difficulty) {
+            "easy" -> 9
+            "medium" -> 20
+            "hard" -> 50
+            else -> 9
+        }
+
+        val digits = (0..maxDigit).shuffled().take(count)
         correctAnswer = digits.max().toString()
-        binding.tvQuestion.append("Найди самое большое число: ${digits.joinToString(", ")}")
+
+        binding.tvQuestion.append(
+            "Найди самое большое число:\n${digits.joinToString(", ")}"
+        )
     }
 
+
     private fun generateRandomMixed() {
-        val list = listOf("math", "translate", "logic", "attention", "find_symbol")
+        val list = listOf("math", "translate", "logic", "attention", "wordpuzzle")
         val randomType = list.random()
         generateTask(randomType)
     }
 
-    private fun generateFindSymbol() {
-        val isLetter = Random.nextBoolean()
-
-        if (isLetter) {
-            val letters = ('a'..'z').toList()
-            val target = letters.random()
-            val list = List(8) { letters.random() }.toMutableList()
-            list[Random.nextInt(list.size)] = target
-            correctAnswer = target.toString()
-            binding.tvQuestion.append("Найди букву: \"$target\"\n\nВыберите её из ряда:\n${list.joinToString("  ")}")
-        } else {
-            val numbers = (0..9).toList()
-            val target = numbers.random()
-            val list = List(8) { numbers.random() }.toMutableList()
-            list[Random.nextInt(list.size)] = target
-            correctAnswer = target.toString()
-            binding.tvQuestion.append("Найди число: $target\n\nВыберите его из ряда:\n${list.joinToString("  ")}")
+    private fun generateWordPuzzle() {
+        val words = when (difficulty) {
+            "easy" -> listOf("кот", "дом", "мир", "сон", "день", "нос", "рот", "год", "час", "лук", "меч", "шар")
+            "medium" -> listOf("окно", "вода", "зима", "лето", "улица", "книга", "ручка", "стол", "стул", "дверь", "океан", "река")
+            "hard" -> listOf("будильник", "умный", "задание", "программа", "телефон", "компьютер", "приложение", "алгоритм", "разработка", "программист", "интерфейс", "устройство")
+            else -> emptyList()
         }
+
+        val word = words.random()
+        val scrambled = word.toList().shuffled().joinToString(" ")
+
+        correctAnswer = word
+        binding.tvQuestion.append("Собери слово из букв:\n$scrambled")
     }
 
+
     private fun checkAnswer() {
-        // Safe call с Elvis operator
         val user = binding.etAnswer.text?.toString()?.trim() ?: ""
 
         if (user.isEmpty()) {
@@ -171,11 +264,10 @@ class TaskActivity : AppCompatActivity() {
             solvedTasks++
             binding.etAnswer.text?.clear()
 
-            // УБИРАЕМ анимацию возвращения кнопки
-            generateTask(currentTaskType) // Просто генерируем новую задачу
+
+            generateTask(currentTaskType) //генерируем новую задачу
         } else {
             saveHistory(currentTaskType, false)
-            vibrateOnError()
             Toast.makeText(this, "Неверно! Попробуйте снова.", Toast.LENGTH_SHORT).show()
         }
     }
@@ -203,6 +295,8 @@ class TaskActivity : AppCompatActivity() {
     }
 
     private fun blockBackPress() {
+        if (isTestMode) return
+
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 Toast.makeText(
@@ -214,17 +308,6 @@ class TaskActivity : AppCompatActivity() {
         })
     }
 
-    private fun vibrateOnError() {
-        val vibrator = getSystemService(VIBRATOR_SERVICE) as? Vibrator
-        vibrator?.let {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                it.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
-            } else {
-                @Suppress("DEPRECATION")
-                it.vibrate(200)
-            }
-        }
-    }
 
     private fun saveHistory(type: String, ok: Boolean) {
         val prefs = getSharedPreferences("task_history", MODE_PRIVATE)
@@ -242,7 +325,7 @@ class TaskActivity : AppCompatActivity() {
         prefs.edit().putString("history", arr.toString()).apply()
     }
 
-    // ← НОВЫЙ МЕТОД: Отмечаем будильник как выполненный
+    //Отмечаем будильник как выполненный
     private fun markAlarmAsCompleted() {
         if (alarmId != 0) {
             val prefs = getSharedPreferences("alarms_completed", MODE_PRIVATE)
@@ -250,11 +333,11 @@ class TaskActivity : AppCompatActivity() {
             completedAlarms.add(alarmId.toString())
             prefs.edit().putStringSet("completed", completedAlarms).apply()
 
-            updateAlarmStatus(false) // false = неактивный (выполнен)
+            updateAlarmStatus(false) //неактивный
         }
     }
 
-    // ← НОВЫЙ МЕТОД: Обновляем статус будильника
+    // Обновляем статус будильника
     private fun updateAlarmStatus(isActive: Boolean) {
         val prefs = getSharedPreferences("alarms_list", MODE_PRIVATE)
         val jsonString = prefs.getString("alarms", "[]") ?: "[]"

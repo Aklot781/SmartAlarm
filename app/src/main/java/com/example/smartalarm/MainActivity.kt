@@ -13,13 +13,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Используем ViewBinding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         Toast.makeText(this, "Умный будильник запущен", Toast.LENGTH_SHORT).show()
 
-        // Назначаем обработчики
         binding.btnSetAlarm.setOnClickListener {
             startActivity(Intent(this, SetAlarmActivity::class.java))
         }
@@ -56,10 +54,16 @@ class MainActivity : AppCompatActivity() {
                - Английский → Русский.
 
             3. Логические задачи
-               - Головоломки и последовательности чисел.
-
-            4. Комбинированные задачи
-               - Несколько типов задач подряд.
+               - Продолжить последовательность чисел и выбор лишнего.
+            
+            4. Поиск чисел
+               - Найди самое большое число.
+            
+            5. Собери слово
+               - Собери слово из имеющихся букв.
+            
+            6. Комбинированные задачи
+               - Несколько различных типов задач подряд.
         """.trimIndent()
 
         androidx.appcompat.app.AlertDialog.Builder(this)

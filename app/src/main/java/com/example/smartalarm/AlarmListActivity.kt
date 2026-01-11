@@ -163,7 +163,7 @@ class AlarmListActivity : AppCompatActivity() {
         // Проверка для Android 12+ (API 31)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (!am.canScheduleExactAlarms()) {
-                // Показываем диалог с предложением перейти в настройки
+                // Диалог с предложением перейти в настройки
                 AlertDialog.Builder(this)
                     .setTitle("Разрешение на точные будильники")
                     .setMessage("Для работы будильника необходимо разрешить точное планирование. Перейти в настройки?")

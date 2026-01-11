@@ -25,6 +25,8 @@ class SetAlarmActivity : AppCompatActivity() {
         binding = ActivitySetAlarmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupClickListeners()
+
         // Проверяем режим редактирования
         isEditMode = intent.getBooleanExtra("edit_mode", false)
 
@@ -37,7 +39,7 @@ class SetAlarmActivity : AppCompatActivity() {
         }
 
         if (isEditMode) {
-            // Режим редактирования: загружаем данные будильника
+            // Режим редактирования - загружаем данные будильника
             editAlarmId = intent.getIntExtra("alarm_id", -1)
             val alarmTime = intent.getLongExtra("alarm_time", System.currentTimeMillis())
             val alarmTaskType = intent.getStringExtra("alarm_task_type") ?: "math"
@@ -53,11 +55,11 @@ class SetAlarmActivity : AppCompatActivity() {
                 "translate" -> binding.rbTranslate.isChecked = true
                 "logic" -> binding.rbLogic.isChecked = true
                 "attention" -> binding.rbAttention.isChecked = true
-                "find_symbol" -> binding.rbFindSymbol.isChecked = true
+                "find_symbol" -> binding.rbGenerateWordPuzzle.isChecked = true
                 "combo" -> binding.rbCombo.isChecked = true
             }
 
-            binding.btnSaveAlarm.text = "💾 Обновить будильник"
+            binding.btnSaveAlarm.text = "Обновить будильник"
         }
 
         binding.btnSaveAlarm.setOnClickListener {
@@ -93,13 +95,20 @@ class SetAlarmActivity : AppCompatActivity() {
         updateTaskDescription(binding.radioGroupTask.checkedRadioButtonId)
     }
 
+    private fun setupClickListeners() {
+        // Кнопка назад в тулбаре
+        binding.btnBack.setOnClickListener {
+            finish() // Закрывает активность и возвращает назад
+        }
+    }
+
     private fun updateTaskDescription(checkedId: Int) {
         val description = when (checkedId) {
             R.id.rbMath -> "Решите математические примеры для отключения будильника"
             R.id.rbTranslate -> "Переведите английские слова на русский язык"
             R.id.rbLogic -> "Продолжите числовые последовательности или найдите лишнее"
             R.id.rbAttention -> "Найдите самое большое число в наборе"
-            R.id.rbFindSymbol -> "Найдите заданную букву или цифру среди других"
+            R.id.rbGenerateWordPuzzle -> "Собери слово из букв"
             R.id.rbCombo -> "Случайный набор разных типов задач"
             else -> "Выберите тип задания"
         }
@@ -165,7 +174,7 @@ class SetAlarmActivity : AppCompatActivity() {
         val jsonArray = JSONArray(jsonString)
 
         if (isEditMode) {
-            // Режим редактирования: удаляем старую запись
+            // Режим редактирования, удаляем старую запись
             for (i in 0 until jsonArray.length()) {
                 if (jsonArray.getJSONObject(i).getInt("id") == id) {
                     jsonArray.remove(i)

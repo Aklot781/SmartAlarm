@@ -32,7 +32,7 @@
                 android:id="@+id/tvStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="✅ Активен"
+                android:text="Активен"
                 android:textSize="14sp"
                 android:padding="4dp"
                 android:background="@color/green_light"
@@ -44,7 +44,7 @@
             android:id="@+id/tvTaskType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="🔢 Математика"
+            android:text="Математика"
             android:textSize="16sp"
             android:layout_marginBottom="12dp" />
 

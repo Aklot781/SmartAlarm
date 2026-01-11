@@ -39,22 +39,22 @@ class AlarmAdapter(
 
         // Тип задачи
         val taskTypeName = when (alarm.taskType) {
-            "math" -> "🔢 Математика"
-            "translate" -> "🌐 Перевод"
-            "logic" -> "🧠 Логика"
-            "attention" -> "🔍 Внимательность"
-            "find_symbol" -> "🔤 Найти символ"
-            "combo" -> "🎯 Смешанные"
-            else -> "❓ Неизвестно"
+            "math" -> "Математика"
+            "translate" -> "Перевод"
+            "logic" -> "Логика"
+            "attention" -> "Внимательность"
+            "wordpuzzle" -> "Собери слово"
+            "combo" -> "Смешанные"
+            else -> "Неизвестно"
         }
         holder.tvTaskType.text = taskTypeName
 
         // Статус
         if (alarm.isActive) {
-            holder.tvStatus.text = "✅ Активен"
+            holder.tvStatus.text = "Активен"
             holder.btnToggle.setImageResource(android.R.drawable.ic_lock_idle_alarm)
         } else {
-            holder.tvStatus.text = "⏸️ Отключен"
+            holder.tvStatus.text = "⏸Отключен"
             holder.btnToggle.setImageResource(android.R.drawable.ic_lock_idle_lock)
         }
 
